@@ -1,6 +1,6 @@
 ﻿namespace V3KeyManager
 {
-	partial class Form1
+	partial class V3KeyManager
 	{
 		/// <summary>
 		///  Required designer variable.
@@ -52,15 +52,15 @@
 			SaveConfigButton.UseVisualStyleBackColor = true;
 			SaveConfigButton.Click += SaveConfigButton_Click;
 			// 
-			// Form1
+			// V3KeyManager
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(800, 450);
 			Controls.Add(SaveConfigButton);
 			Controls.Add(OpenConfigButton);
-			Name = "Form1";
-			Text = "Form1";
+			Name = "V3KeyManager";
+			Text = "V3KeyManager";
 			ResumeLayout(false);
 		}
 

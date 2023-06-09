@@ -1,10 +1,10 @@
 namespace V3KeyManager
 {
-	public partial class Form1 : Form
+	public partial class V3KeyManager : Form
 	{
 		ConfigFile CurrentConfig = new ConfigFile();
 
-		public Form1()
+		public V3KeyManager()
 		{
 			InitializeComponent();
 		}
@@ -24,7 +24,7 @@ namespace V3KeyManager
 		private void SaveConfigButton_Click(object sender, EventArgs e)
 		{
 			SaveFileDialog sfd = new SaveFileDialog();
-			if(sfd.ShowDialog() != DialogResult.OK)
+			if (sfd.ShowDialog() != DialogResult.OK)
 			{
 				return;
 			}
