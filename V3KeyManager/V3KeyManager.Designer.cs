@@ -89,6 +89,7 @@
 			EditWindowSettingsButton.TabIndex = 3;
 			EditWindowSettingsButton.Text = "Edit Window Settings";
 			EditWindowSettingsButton.UseVisualStyleBackColor = true;
+			EditWindowSettingsButton.Click += EditWindowSettingsButton_Click;
 			// 
 			// EditPadSettingsButton
 			// 

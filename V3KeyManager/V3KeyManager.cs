@@ -46,15 +46,19 @@ namespace V3KeyManager
 		private void UpdateGUIColors()
 		{
 			bool different_version = CurrentConfig.Version.GameVersion != OpenedConfig.Version.GameVersion;
-			Debug.WriteLine(CurrentConfig.Version.GameVersion + " == " + OpenedConfig.Version.GameVersion);
+			Debug.WriteLine("(1)" + CurrentConfig.Version.GameVersion + " == " + OpenedConfig.Version.GameVersion);
 
 			bool different_window_mode = CurrentConfig.Window.WindowMode != OpenedConfig.Window.WindowMode;
 			bool different_window_top = CurrentConfig.Window.WindowTopX != OpenedConfig.Window.WindowTopX ||
 							CurrentConfig.Window.WindowTopY != OpenedConfig.Window.WindowTopY;
 			bool different_window_size = CurrentConfig.Window.WindowSizeX != OpenedConfig.Window.WindowSizeX ||
 										CurrentConfig.Window.WindowSizeY != OpenedConfig.Window.WindowSizeY;
+			Debug.WriteLine("(2)" + CurrentConfig.Window.WindowSizeX + "x" + CurrentConfig.Window.WindowSizeY + 
+							" != " + OpenedConfig.Window.WindowSizeX + "x" + OpenedConfig.Window.WindowSizeY);
 			bool different_render_size = CurrentConfig.Window.RenderSizeX != OpenedConfig.Window.RenderSizeX ||
 										CurrentConfig.Window.RenderSizeY != OpenedConfig.Window.RenderSizeY;
+			Debug.WriteLine("(3)" + CurrentConfig.Window.RenderSizeX + "x" + CurrentConfig.Window.RenderSizeY +
+				" != " + OpenedConfig.Window.RenderSizeX + "x" + OpenedConfig.Window.RenderSizeY);
 			bool different_render_fs_size = CurrentConfig.Window.FullscreenRenderSizeX != OpenedConfig.Window.FullscreenRenderSizeX ||
 										CurrentConfig.Window.FullscreenRenderSizeY != OpenedConfig.Window.FullscreenRenderSizeY;
 
@@ -112,24 +116,6 @@ namespace V3KeyManager
 			CurrentConfig.Save(sfd.FileName);
 		}
 
-		private void EditVersionButton_Click(object sender, EventArgs e)
-		{
-			if (OpenedConfig == null)
-			{
-				return;
-			}
-
-			EditVersion editVersion = new EditVersion();
-			DialogResult res = editVersion.ShowDialog();
-			if (res == DialogResult.OK)
-			{
-				CurrentConfig.Version.GameVersion = editVersion.InsertVersionTextbox.Text;
-			}
-			editVersion.Close();
-			editVersion.Dispose();
-			UpdateGUIFromConfig();
-		}
-
 		private void OpenBackgroundImageButton_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog ofd = new OpenFileDialog();
@@ -168,34 +154,85 @@ namespace V3KeyManager
 			string steam_config = Path.Combine(config_loc, "config.txt");
 			string steam_path = Path.Combine(config_loc, steam_version_file);
 
-			if(File.Exists(xbox_path) && File.Exists(steam_path))
+			if (File.Exists(xbox_path) && File.Exists(steam_path))
 			{
 				Debug.WriteLine("(1) " + xbox_path + " / " + steam_path);
 				return;
 			}
 
-			if(!File.Exists(xbox_path) && !File.Exists(steam_path))
+			if (!File.Exists(xbox_path) && !File.Exists(steam_path))
 			{
 				Debug.WriteLine("(2) " + xbox_path + " / " + steam_path);
 				return;
 			}
 
-			if(File.Exists(xbox_path))
+			if (File.Exists(xbox_path))
 			{
 				xbox_version = true;
 			}
 
-			if(xbox_version)
+			if (xbox_version)
 			{
 				CurrentConfig.Save(xbox_config);
 				Debug.WriteLine(xbox_path);
 				Process.Start(xbox_path, "");
-			} else
+			}
+			else
 			{
 				CurrentConfig.Save(steam_config);
 				Debug.WriteLine(steam_path);
 				Process.Start(steam_path, "");
 			}
+		}
+
+		private void EditVersionButton_Click(object sender, EventArgs e)
+		{
+			if (OpenedConfig == null)
+			{
+				return;
+			}
+
+			EditVersion editVersion = new EditVersion();
+			editVersion.CurrentVersionLabel.Text = "Current Version: " + CurrentConfig.Version.GameVersion;
+			DialogResult res = editVersion.ShowDialog();
+			if (res == DialogResult.OK)
+			{
+				CurrentConfig.Version.GameVersion = editVersion.InsertVersionTextbox.Text;
+			}
+			editVersion.Close();
+			editVersion.Dispose();
+			UpdateGUIFromConfig();
+		}
+
+		private void EditWindowSettingsButton_Click(object sender, EventArgs e)
+		{
+			if (OpenedConfig == null)
+			{
+				return;
+			}
+
+			EditWindowSettings editWindowSettings = new EditWindowSettings();
+			editWindowSettings.CurrentWindowModeLabel.Text = "Current Window Mode: " + CurrentConfig.GetHR(CurrentConfig.Window.WindowMode);
+			editWindowSettings.CurrentWindowLocationLabel.Text = "Current Window Location: [" + CurrentConfig.Window.WindowTopX.ToString() + ", " + CurrentConfig.Window.WindowTopY.ToString() + "]";
+			editWindowSettings.CurrentWindowSizeLabel.Text = "Current Window Size: " + CurrentConfig.Window.WindowSizeX.ToString() + "x" + CurrentConfig.Window.WindowSizeY.ToString();
+			editWindowSettings.CurrentRenderSizeLabel.Text = "Current Render Size: " + CurrentConfig.Window.RenderSizeX.ToString() + "x" + CurrentConfig.Window.RenderSizeY.ToString();
+			editWindowSettings.CurrentFullscreenRenderSizeLabel.Text = "Current Fullscreen Render Size: " + CurrentConfig.Window.FullscreenRenderSizeX.ToString() + "x" + CurrentConfig.Window.FullscreenRenderSizeY.ToString();
+			DialogResult res = editWindowSettings.ShowDialog();
+			if (res == DialogResult.OK)
+			{
+				CurrentConfig.Window.WindowMode = editWindowSettings.NewWindowModeComboBox.Text.ToLower();
+				CurrentConfig.Window.WindowTopX = int.Parse(editWindowSettings.NewWindowLocationX.Text);
+				CurrentConfig.Window.WindowTopY = int.Parse(editWindowSettings.NewWindowLocationY.Text);
+				CurrentConfig.Window.WindowSizeX = int.Parse(editWindowSettings.NewWindowSizeX.Text);
+				CurrentConfig.Window.WindowSizeY = int.Parse(editWindowSettings.NewWindowSizeY.Text);
+				CurrentConfig.Window.RenderSizeX = int.Parse(editWindowSettings.NewRenderSizeX.Text);
+				CurrentConfig.Window.RenderSizeY = int.Parse(editWindowSettings.NewRenderSizeY.Text);
+				CurrentConfig.Window.FullscreenRenderSizeX = int.Parse(editWindowSettings.NewFullscreenRenderSizeX.Text);
+				CurrentConfig.Window.FullscreenRenderSizeY = int.Parse(editWindowSettings.NewFullscreenRenderSizeY.Text);
+			}
+			editWindowSettings.Close();
+			editWindowSettings.Dispose();
+			UpdateGUIFromConfig();
 		}
 	}
 }

@@ -278,6 +278,10 @@ namespace V3KeyManager
 					return "Controller";
 				case "windowed":
 					return "Windowed";
+				case "borderless":
+					return "Borderless";
+				case "fullscreen":
+					return "Fullscreen";
 				default:
 					return "Unknown";
 			}
