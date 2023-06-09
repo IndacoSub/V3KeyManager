@@ -39,6 +39,7 @@
 *.lock
 *.pdb
 *.props
+*.pubxml
 *.resources
 *.targets
 *.user
@@ -47,3 +48,4 @@
 
 .vs/*
 V3KeyManager/obj/*
+*.7z

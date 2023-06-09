@@ -290,6 +290,7 @@ namespace V3KeyManager
 
 		private void EditEffectSettingsButton_Click(object sender, EventArgs e)
 		{
+
 			if (OpenedConfig == null)
 			{
 				return;
@@ -298,12 +299,107 @@ namespace V3KeyManager
 			EditEffectSettings editEffectSettings = new EditEffectSettings();
 			editEffectSettings.CurrentFXAALabel.Text = "Current FXAA: " + ConfigFile.GetHR(CurrentConfig.Effect.FXAA, false);
 			DialogResult res = editEffectSettings.ShowDialog();
-			if(res == DialogResult.OK)
+			if (res == DialogResult.OK)
 			{
 				CurrentConfig.Effect.FXAA = ConfigFile.GetHR(editEffectSettings.ActivateFXAACheckbox.Checked ? "On" : "Off", true);
 			}
 			editEffectSettings.Close();
 			editEffectSettings.Dispose();
+			UpdateGUIFromConfig();
+		}
+
+		private void EditKeyboardSettingsButton_Click(object sender, EventArgs e)
+		{
+
+			if (OpenedConfig == null)
+			{
+				return;
+			}
+
+			bool fill_entries = true;
+
+			DialogResult res = DialogResult.Cancel;
+			EditKeyboardSettings editKeyboardSettings = new EditKeyboardSettings();
+			do {
+				editKeyboardSettings.ResetLabels();
+				editKeyboardSettings.ResetTextboxes();
+				editKeyboardSettings.PadUpKey.LoadKey("Pad Up", CurrentConfig.Keyboard.PadUp, fill_entries);
+				editKeyboardSettings.PadDownKey.LoadKey("Pad Down", CurrentConfig.Keyboard.PadDown, fill_entries);
+				editKeyboardSettings.PadLeftKey.LoadKey("Pad Left", CurrentConfig.Keyboard.PadLeft, fill_entries);
+				editKeyboardSettings.PadRightKey.LoadKey("Pad Right", CurrentConfig.Keyboard.PadRight, fill_entries);
+				editKeyboardSettings.PadR1Key.LoadKey("Pad R1", CurrentConfig.Keyboard.PadR1, fill_entries);
+				editKeyboardSettings.PadR2Key.LoadKey("Pad R2", CurrentConfig.Keyboard.PadR2, fill_entries);
+				editKeyboardSettings.PadR3Key.LoadKey("Pad R3", CurrentConfig.Keyboard.PadR3, fill_entries);
+				editKeyboardSettings.PadL1Key.LoadKey("Pad L1", CurrentConfig.Keyboard.PadL1, fill_entries);
+				editKeyboardSettings.PadL2Key.LoadKey("Pad L2", CurrentConfig.Keyboard.PadL2, fill_entries);
+				editKeyboardSettings.PadL3Key.LoadKey("Pad L3", CurrentConfig.Keyboard.PadL3, fill_entries);
+				editKeyboardSettings.PadCrossKey.LoadKey("Pad Cross", CurrentConfig.Keyboard.PadCross, fill_entries);
+				editKeyboardSettings.PadCircleKey.LoadKey("Pad Circle", CurrentConfig.Keyboard.PadCircle, fill_entries);
+				editKeyboardSettings.PadSquareKey.LoadKey("Pad Square", CurrentConfig.Keyboard.PadSquare, fill_entries);
+				editKeyboardSettings.PadTriangleKey.LoadKey("Pad Triangle", CurrentConfig.Keyboard.PadTriangle, fill_entries);
+				editKeyboardSettings.PadStartKey.LoadKey("Pad Start", CurrentConfig.Keyboard.PadStart, fill_entries);
+				editKeyboardSettings.PadSelectKey.LoadKey("Pad Select", CurrentConfig.Keyboard.PadSelect, fill_entries);
+				editKeyboardSettings.PadAnyKey.LoadKey("Pad Any", CurrentConfig.Keyboard.PadAny, fill_entries);
+				editKeyboardSettings.MoveFrontKey.LoadKey("Move Front", CurrentConfig.Keyboard.MoveFront, fill_entries);
+				editKeyboardSettings.MoveBackKey.LoadKey("Move Back", CurrentConfig.Keyboard.MoveBack, fill_entries);
+				editKeyboardSettings.MoveLeftKey.LoadKey("Move Left", CurrentConfig.Keyboard.MoveLeft, fill_entries);
+				editKeyboardSettings.MoveRightKey.LoadKey("Move Right", CurrentConfig.Keyboard.MoveRight, fill_entries);
+				editKeyboardSettings.MoveCameraUpKey.LoadKey("Camera Up", CurrentConfig.Keyboard.MoveCameraUp, fill_entries);
+				editKeyboardSettings.MoveCameraDownKey.LoadKey("Camera Down", CurrentConfig.Keyboard.MoveCameraDown, fill_entries);
+				editKeyboardSettings.MoveCameraLeftKey.LoadKey("Camera Left", CurrentConfig.Keyboard.MoveCameraLeft, fill_entries);
+				editKeyboardSettings.MoveCameraRightKey.LoadKey("Camera Right", CurrentConfig.Keyboard.MoveCameraRight, fill_entries);
+				editKeyboardSettings.MoveCameraLeftDRKey.LoadKey("Camera Left DR", CurrentConfig.Keyboard.MoveCameraLeftDR, fill_entries);
+				editKeyboardSettings.MoveCameraRightDRKey.LoadKey("Camera Right DR", CurrentConfig.Keyboard.MoveCameraRightDR, fill_entries);
+				editKeyboardSettings.MoveDashKey.LoadKey("Move Dash", CurrentConfig.Keyboard.MoveDash, fill_entries);
+				editKeyboardSettings.MessageSkipKey.LoadKey("Message Skip", CurrentConfig.Keyboard.MessageSkip, fill_entries);
+				editKeyboardSettings.PushWKey.LoadKey("Push W", CurrentConfig.Keyboard.PushW, fill_entries);
+				editKeyboardSettings.PushSKey.LoadKey("Push S", CurrentConfig.Keyboard.PushS, fill_entries);
+				editKeyboardSettings.PushAKey.LoadKey("Push A", CurrentConfig.Keyboard.PushA, fill_entries);
+				editKeyboardSettings.PushDKey.LoadKey("Push D", CurrentConfig.Keyboard.PushD, fill_entries);
+				editKeyboardSettings.MouseModeKey.LoadKey("Mouse Mode", CurrentConfig.Keyboard.MouseMode, fill_entries);
+				editKeyboardSettings.ReturnButtonKey.LoadKey("Return Button", CurrentConfig.Keyboard.ReturnButton, fill_entries);
+				res = editKeyboardSettings.ShowDialog();
+			} while(res == DialogResult.No);
+			if(res == DialogResult.OK)
+			{
+				CurrentConfig.Keyboard.PadUp = editKeyboardSettings.PadUpKey.ToStringList();
+				CurrentConfig.Keyboard.PadDown = editKeyboardSettings.PadDownKey.ToStringList();
+				CurrentConfig.Keyboard.PadLeft = editKeyboardSettings.PadLeftKey.ToStringList();
+				CurrentConfig.Keyboard.PadRight = editKeyboardSettings.PadRightKey.ToStringList();
+				CurrentConfig.Keyboard.PadR1 = editKeyboardSettings.PadR1Key.ToStringList();
+				CurrentConfig.Keyboard.PadR2 = editKeyboardSettings.PadR2Key.ToStringList();
+				CurrentConfig.Keyboard.PadR3 = editKeyboardSettings.PadR3Key.ToStringList();
+				CurrentConfig.Keyboard.PadL1 = editKeyboardSettings.PadL1Key.ToStringList();
+				CurrentConfig.Keyboard.PadL2 = editKeyboardSettings.PadL2Key.ToStringList();
+				CurrentConfig.Keyboard.PadL3 = editKeyboardSettings.PadL3Key.ToStringList();
+				CurrentConfig.Keyboard.PadCross = editKeyboardSettings.PadCrossKey.ToStringList();
+				CurrentConfig.Keyboard.PadCircle = editKeyboardSettings.PadCircleKey.ToStringList();
+				CurrentConfig.Keyboard.PadSquare = editKeyboardSettings.PadSquareKey.ToStringList();
+				CurrentConfig.Keyboard.PadTriangle = editKeyboardSettings.PadTriangleKey.ToStringList();
+				CurrentConfig.Keyboard.PadStart = editKeyboardSettings.PadStartKey.ToStringList();
+				CurrentConfig.Keyboard.PadSelect = editKeyboardSettings.PadSelectKey.ToStringList();
+				CurrentConfig.Keyboard.PadAny = editKeyboardSettings.PadAnyKey.ToStringList();
+				CurrentConfig.Keyboard.MoveFront = editKeyboardSettings.MoveFrontKey.ToStringList();
+				CurrentConfig.Keyboard.MoveBack = editKeyboardSettings.MoveBackKey.ToStringList();
+				CurrentConfig.Keyboard.MoveLeft = editKeyboardSettings.MoveLeftKey.ToStringList();
+				CurrentConfig.Keyboard.MoveRight = editKeyboardSettings.MoveRightKey.ToStringList();
+				CurrentConfig.Keyboard.MoveCameraUp = editKeyboardSettings.MoveCameraUpKey.ToStringList();
+				CurrentConfig.Keyboard.MoveCameraDown = editKeyboardSettings.MoveCameraDownKey.ToStringList();
+				CurrentConfig.Keyboard.MoveCameraLeft = editKeyboardSettings.MoveCameraLeftKey.ToStringList();
+				CurrentConfig.Keyboard.MoveCameraRight = editKeyboardSettings.MoveCameraRightKey.ToStringList();
+				CurrentConfig.Keyboard.MoveCameraLeftDR = editKeyboardSettings.MoveCameraLeftDRKey.ToStringList();
+				CurrentConfig.Keyboard.MoveCameraRightDR = editKeyboardSettings.MoveCameraRightDRKey.ToStringList();
+				CurrentConfig.Keyboard.MoveDash = editKeyboardSettings.MoveDashKey.ToStringList();
+				CurrentConfig.Keyboard.MessageSkip = editKeyboardSettings.MessageSkipKey.ToStringList();
+				CurrentConfig.Keyboard.PushW = editKeyboardSettings.PushWKey.ToStringList();
+				CurrentConfig.Keyboard.PushS = editKeyboardSettings.PushSKey.ToStringList();
+				CurrentConfig.Keyboard.PushA = editKeyboardSettings.PushAKey.ToStringList();
+				CurrentConfig.Keyboard.PushD = editKeyboardSettings.PushDKey.ToStringList();
+				CurrentConfig.Keyboard.MouseMode = editKeyboardSettings.MouseModeKey.ToStringList();
+				CurrentConfig.Keyboard.ReturnButton = editKeyboardSettings.ReturnButtonKey.ToStringList();
+			}
+			editKeyboardSettings.Close();
+			editKeyboardSettings.Dispose();
 			UpdateGUIFromConfig();
 		}
 	}

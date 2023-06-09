@@ -99,6 +99,10 @@ namespace V3KeyManager
 
 		public string ConcatenateList(List<string> strings)
 		{
+			if(strings.Count == 0)
+			{
+				return "";
+			}
 
 			StringBuilder sb = new StringBuilder();
 			sb.AppendJoin(',', strings);
@@ -265,10 +269,93 @@ namespace V3KeyManager
 			}
 		}
 
-		// "Human Readable"
-		static public string GetHR(string str, bool reverse)
+		static public Dictionary<string, string> GetWeirdControls()
 		{
+			Dictionary<string, string> controls = new Dictionary<string, string>()
+			{
+				{ "Escape", "escape" },
+				{ "Left Shift", "l_shift" },
+				{ "Backspace", "return" },
+				{ "Slash", "slash" },
+				{ "Space", "space" },
+				{ "Down Arrow", "down_arrow" },
+				{ "Left Arrow", "left_arrow" },
+				{ "Right Arrow", "right_arrow" },
+				{ "Up Arrow", "up_arrow" },
+			};
 
+			return controls;
+		}
+
+		static public Dictionary<string, string> GetNormalControls()
+		{
+			Dictionary<string, string> controls = new Dictionary<string, string>()
+			{
+				{ "escape", "Esc (Escape)" },
+				{ "f1", "F1" },
+				{ "f2", "F2" },
+				{ "f3", "F3" },
+				{ "key_a", "A" },
+				{ "key_d", "D" },
+				{ "key_e", "E" },
+				{ "key_q", "Q" },
+				{ "key_r", "R" },
+				{ "key_s", "S" },
+				{ "key_w", "W"},
+				{ "key_x", "X" },
+				{ "key_z", "Z" },
+				{ "l_ctrl", "Left Control" },
+				{ "l_shift", "⇧ (Left Shift)" },
+				{ "return", "⌫ (Backspace)" },
+				{ "slash", "/ (Slash)"},
+				{ "space", "⎵ (Space)" },
+				{ "down_arrow", "↓ (Down Arrow)" },
+				{ "left_arrow", "← (Left Arrow)" },
+				{ "right_arrow", "→ (Right Arrow)" },
+				{ "up_arrow", "↑ (Up Arrow)" },
+			};
+
+			return controls;
+		}
+
+		static public string TranslateNormalControls(string str, bool reverse)
+		{
+			var controls = GetNormalControls();
+			if (!reverse)
+			{
+				string ret = controls.FirstOrDefault(x => x.Key == str).Value;
+				if (ret == null || ret.Length == 0)
+				{
+					Debug.WriteLine("(TNC) Could not find: " + str);
+					ret = str;
+				}
+				return ret;
+			} else
+			{
+				string ret = controls.FirstOrDefault(x => x.Value == str).Key;
+				if (ret == null || ret.Length == 0)
+				{
+					Debug.WriteLine("(TNC) Could not find: " + str);
+					ret = str;
+				}
+				return ret;
+			}
+		}
+
+		static public string TranslateWeirdControls(string str)
+		{
+			var controls = GetWeirdControls();
+			string ret = controls.FirstOrDefault(x => x.Key == str).Value;
+			if (ret == null || ret.Length == 0)
+			{
+				Debug.WriteLine("(TWC) Could not find: " + str);
+				ret = str;
+			}
+			return ret;
+		}
+
+		static public Dictionary<string, string> GetTerms()
+		{
 			Dictionary<string, string> terms = new Dictionary<string, string>()
 			{
 				{ "off", "Off" },
@@ -279,15 +366,39 @@ namespace V3KeyManager
 				{ "windowed", "Windowed" },
 				{ "borderless", "Borderless" },
 				{ "fullscreen", "Fullscreen" },
+
 			};
+
+			return terms;
+		}
+
+		// "Human Readable"
+		static public string GetHR(string str, bool reverse)
+		{
+			if(str == null)
+			{
+				return "Invalid";
+			}
+
+			var terms = GetTerms();
 
 			if (!reverse)
 			{
 				string ret = terms.FirstOrDefault(x => x.Key == str).Value;
+				if(ret == null || ret.Length == 0)
+				{
+					Debug.WriteLine("(GHR 1) Could not find: " + str);
+					ret = str;
+				}
 				return ret;
 			} else
 			{
 				string ret = terms.FirstOrDefault(x => x.Value == str).Key;
+				if (ret == null || ret.Length == 0)
+				{
+					Debug.WriteLine("(GHR 2) Could not find: " + str);
+					ret = str;
+				}
 				return ret;
 			}
 		}

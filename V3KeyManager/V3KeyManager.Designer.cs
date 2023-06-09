@@ -130,6 +130,7 @@
 			EditKeyboardSettingsButton.TabIndex = 7;
 			EditKeyboardSettingsButton.Text = "Edit Keyboard Settings";
 			EditKeyboardSettingsButton.UseVisualStyleBackColor = true;
+			EditKeyboardSettingsButton.Click += EditKeyboardSettingsButton_Click;
 			// 
 			// ResetChangesButton
 			// 
