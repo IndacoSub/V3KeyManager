@@ -48,6 +48,7 @@
 			WindowLocationLabel = new Label();
 			WindowSizeLabel = new Label();
 			OpenBackgroundImageButton = new Button();
+			CreateDefaultConfigFile = new Button();
 			((System.ComponentModel.ISupportInitialize)BackgroundImage).BeginInit();
 			SuspendLayout();
 			// 
@@ -57,7 +58,7 @@
 			OpenConfigButton.Name = "OpenConfigButton";
 			OpenConfigButton.Size = new Size(120, 58);
 			OpenConfigButton.TabIndex = 0;
-			OpenConfigButton.Text = "Open Config";
+			OpenConfigButton.Text = "Open Config File";
 			OpenConfigButton.UseVisualStyleBackColor = true;
 			OpenConfigButton.Click += OpenConfigButton_Click;
 			// 
@@ -270,11 +271,22 @@
 			OpenBackgroundImageButton.UseVisualStyleBackColor = true;
 			OpenBackgroundImageButton.Click += OpenBackgroundImageButton_Click;
 			// 
+			// CreateDefaultConfigFile
+			// 
+			CreateDefaultConfigFile.Location = new Point(138, 383);
+			CreateDefaultConfigFile.Name = "CreateDefaultConfigFile";
+			CreateDefaultConfigFile.Size = new Size(120, 58);
+			CreateDefaultConfigFile.TabIndex = 20;
+			CreateDefaultConfigFile.Text = "Create Default Config File";
+			CreateDefaultConfigFile.UseVisualStyleBackColor = true;
+			CreateDefaultConfigFile.Click += CreateDefaultConfigFile_Click;
+			// 
 			// V3KeyManager
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(775, 450);
+			Controls.Add(CreateDefaultConfigFile);
 			Controls.Add(OpenBackgroundImageButton);
 			Controls.Add(WindowSizeLabel);
 			Controls.Add(WindowLocationLabel);
@@ -324,5 +336,6 @@
 		private Label WindowLocationLabel;
 		private Label WindowSizeLabel;
 		private Button OpenBackgroundImageButton;
+		private Button CreateDefaultConfigFile;
 	}
 }

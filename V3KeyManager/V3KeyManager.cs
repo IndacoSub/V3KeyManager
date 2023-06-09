@@ -53,7 +53,7 @@ namespace V3KeyManager
 							CurrentConfig.Window.WindowTopY != OpenedConfig.Window.WindowTopY;
 			bool different_window_size = CurrentConfig.Window.WindowSizeX != OpenedConfig.Window.WindowSizeX ||
 										CurrentConfig.Window.WindowSizeY != OpenedConfig.Window.WindowSizeY;
-			Debug.WriteLine("(2)" + CurrentConfig.Window.WindowSizeX + "x" + CurrentConfig.Window.WindowSizeY + 
+			Debug.WriteLine("(2)" + CurrentConfig.Window.WindowSizeX + "x" + CurrentConfig.Window.WindowSizeY +
 							" != " + OpenedConfig.Window.WindowSizeX + "x" + OpenedConfig.Window.WindowSizeY);
 			bool different_render_size = CurrentConfig.Window.RenderSizeX != OpenedConfig.Window.RenderSizeX ||
 										CurrentConfig.Window.RenderSizeY != OpenedConfig.Window.RenderSizeY;
@@ -182,6 +182,17 @@ namespace V3KeyManager
 				CurrentConfig.Save(steam_config);
 				Debug.WriteLine(steam_path);
 				Process.Start(steam_path, "");
+			}
+		}
+
+		private void CreateDefaultConfigFile_Click(object sender, EventArgs e)
+		{
+			
+			ConfigFile default_config = new ConfigFile();
+			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			if(saveFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				default_config.Save(saveFileDialog.FileName);
 			}
 		}
 

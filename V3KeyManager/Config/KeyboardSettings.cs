@@ -19,12 +19,12 @@ namespace V3KeyManager
 		public List<string> PadL2 = new List<string>();
 		public List<string> PadL3 = new List<string>();
 		public List<string> PadCross = new List<string> { "key_z" };
-		public List<string> PadCircle = new List<string> { "escape", "key_r", "key_z" };
+		public List<string> PadCircle = new List<string> { "escape", "key_r", "key_x" };
 		public List<string> PadSquare = new List<string> { "f1" };
 		public List<string> PadTriangle = new List<string> { "return" };
 		public List<string> PadStart = new List<string> { "f3" };
 		public List<string> PadSelect = new List<string> { "f2" };
-		public List<string> PadAny = new List<string>();
+		public List<string> PadAny = new List<string> { "return", "space", "escape" };
 		public List<string> MoveFront = new List<string> { "key_w" };
 		public List<string> MoveBack = new List<string> { "key_s" };
 		public List<string> MoveLeft = new List<string> { "key_a" };
