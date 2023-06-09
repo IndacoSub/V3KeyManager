@@ -264,5 +264,23 @@ namespace V3KeyManager
 				sr.WriteLine("");
 			}
 		}
+
+		// "Human Readable"
+		public string GetHR(string str)
+		{
+			switch (str)
+			{
+				case "off":
+					return "Off";
+				case "on":
+					return "On";
+				case "pad":
+					return "Controller";
+				case "windowed":
+					return "Windowed";
+				default:
+					return "Unknown";
+			}
+		}
 	}
 }

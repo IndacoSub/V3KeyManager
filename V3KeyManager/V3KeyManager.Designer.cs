@@ -38,11 +38,22 @@
 			EditKeyboardSettingsButton = new Button();
 			ResetChangesButton = new Button();
 			LaunchGameButton = new Button();
+			BackgroundImage = new PictureBox();
+			VersionLabel = new Label();
+			InputTypeLabel = new Label();
+			WindowModeLabel = new Label();
+			RenderResolutionLabel = new Label();
+			MouseSpeedLabel = new Label();
+			FXAALabel = new Label();
+			WindowLocationLabel = new Label();
+			WindowSizeLabel = new Label();
+			OpenBackgroundImageButton = new Button();
+			((System.ComponentModel.ISupportInitialize)BackgroundImage).BeginInit();
 			SuspendLayout();
 			// 
 			// OpenConfigButton
 			// 
-			OpenConfigButton.Location = new Point(13, 383);
+			OpenConfigButton.Location = new Point(265, 383);
 			OpenConfigButton.Name = "OpenConfigButton";
 			OpenConfigButton.Size = new Size(120, 58);
 			OpenConfigButton.TabIndex = 0;
@@ -52,7 +63,7 @@
 			// 
 			// SaveConfigButton
 			// 
-			SaveConfigButton.Location = new Point(139, 383);
+			SaveConfigButton.Location = new Point(391, 383);
 			SaveConfigButton.Name = "SaveConfigButton";
 			SaveConfigButton.Size = new Size(120, 58);
 			SaveConfigButton.TabIndex = 1;
@@ -68,6 +79,7 @@
 			EditVersionButton.TabIndex = 2;
 			EditVersionButton.Text = "Edit Version";
 			EditVersionButton.UseVisualStyleBackColor = true;
+			EditVersionButton.Click += EditVersionButton_Click;
 			// 
 			// EditWindowSettingsButton
 			// 
@@ -116,7 +128,7 @@
 			// 
 			// ResetChangesButton
 			// 
-			ResetChangesButton.Location = new Point(265, 383);
+			ResetChangesButton.Location = new Point(517, 383);
 			ResetChangesButton.Name = "ResetChangesButton";
 			ResetChangesButton.Size = new Size(120, 58);
 			ResetChangesButton.TabIndex = 8;
@@ -125,18 +137,151 @@
 			// 
 			// LaunchGameButton
 			// 
-			LaunchGameButton.Location = new Point(391, 383);
+			LaunchGameButton.Location = new Point(643, 383);
 			LaunchGameButton.Name = "LaunchGameButton";
 			LaunchGameButton.Size = new Size(120, 58);
 			LaunchGameButton.TabIndex = 9;
 			LaunchGameButton.Text = "Launch Game";
 			LaunchGameButton.UseVisualStyleBackColor = true;
 			// 
+			// BackgroundImage
+			// 
+			BackgroundImage.Dock = DockStyle.Top;
+			BackgroundImage.Location = new Point(0, 0);
+			BackgroundImage.Name = "BackgroundImage";
+			BackgroundImage.Size = new Size(775, 299);
+			BackgroundImage.TabIndex = 10;
+			BackgroundImage.TabStop = false;
+			// 
+			// VersionLabel
+			// 
+			VersionLabel.AutoSize = true;
+			VersionLabel.BackColor = Color.Transparent;
+			VersionLabel.FlatStyle = FlatStyle.Flat;
+			VersionLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+			VersionLabel.ImageAlign = ContentAlignment.MiddleLeft;
+			VersionLabel.Location = new Point(12, 11);
+			VersionLabel.Name = "VersionLabel";
+			VersionLabel.Size = new Size(84, 25);
+			VersionLabel.TabIndex = 11;
+			VersionLabel.Text = "Version:";
+			// 
+			// InputTypeLabel
+			// 
+			InputTypeLabel.AutoSize = true;
+			InputTypeLabel.BackColor = Color.Transparent;
+			InputTypeLabel.FlatStyle = FlatStyle.Flat;
+			InputTypeLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+			InputTypeLabel.ImageAlign = ContentAlignment.MiddleLeft;
+			InputTypeLabel.Location = new Point(12, 136);
+			InputTypeLabel.Name = "InputTypeLabel";
+			InputTypeLabel.Size = new Size(66, 25);
+			InputTypeLabel.TabIndex = 12;
+			InputTypeLabel.Text = "Input:";
+			// 
+			// WindowModeLabel
+			// 
+			WindowModeLabel.AutoSize = true;
+			WindowModeLabel.BackColor = Color.Transparent;
+			WindowModeLabel.FlatStyle = FlatStyle.Flat;
+			WindowModeLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+			WindowModeLabel.ImageAlign = ContentAlignment.MiddleLeft;
+			WindowModeLabel.Location = new Point(12, 36);
+			WindowModeLabel.Name = "WindowModeLabel";
+			WindowModeLabel.Size = new Size(149, 25);
+			WindowModeLabel.TabIndex = 13;
+			WindowModeLabel.Text = "Window Mode:";
+			// 
+			// RenderResolutionLabel
+			// 
+			RenderResolutionLabel.AutoSize = true;
+			RenderResolutionLabel.BackColor = Color.Transparent;
+			RenderResolutionLabel.FlatStyle = FlatStyle.Flat;
+			RenderResolutionLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+			RenderResolutionLabel.ImageAlign = ContentAlignment.MiddleLeft;
+			RenderResolutionLabel.Location = new Point(12, 111);
+			RenderResolutionLabel.Name = "RenderResolutionLabel";
+			RenderResolutionLabel.Size = new Size(181, 25);
+			RenderResolutionLabel.TabIndex = 14;
+			RenderResolutionLabel.Text = "Render Resolution:";
+			// 
+			// MouseSpeedLabel
+			// 
+			MouseSpeedLabel.AutoSize = true;
+			MouseSpeedLabel.BackColor = Color.Transparent;
+			MouseSpeedLabel.FlatStyle = FlatStyle.Flat;
+			MouseSpeedLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+			MouseSpeedLabel.ImageAlign = ContentAlignment.MiddleLeft;
+			MouseSpeedLabel.Location = new Point(12, 161);
+			MouseSpeedLabel.Name = "MouseSpeedLabel";
+			MouseSpeedLabel.Size = new Size(137, 25);
+			MouseSpeedLabel.TabIndex = 15;
+			MouseSpeedLabel.Text = "Mouse Speed:";
+			// 
+			// FXAALabel
+			// 
+			FXAALabel.AutoSize = true;
+			FXAALabel.BackColor = Color.Transparent;
+			FXAALabel.FlatStyle = FlatStyle.Flat;
+			FXAALabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+			FXAALabel.ImageAlign = ContentAlignment.MiddleLeft;
+			FXAALabel.Location = new Point(12, 186);
+			FXAALabel.Name = "FXAALabel";
+			FXAALabel.Size = new Size(65, 25);
+			FXAALabel.TabIndex = 16;
+			FXAALabel.Text = "FXAA:";
+			// 
+			// WindowLocationLabel
+			// 
+			WindowLocationLabel.AutoSize = true;
+			WindowLocationLabel.BackColor = Color.Transparent;
+			WindowLocationLabel.FlatStyle = FlatStyle.Flat;
+			WindowLocationLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+			WindowLocationLabel.ImageAlign = ContentAlignment.MiddleLeft;
+			WindowLocationLabel.Location = new Point(12, 61);
+			WindowLocationLabel.Name = "WindowLocationLabel";
+			WindowLocationLabel.Size = new Size(174, 25);
+			WindowLocationLabel.TabIndex = 17;
+			WindowLocationLabel.Text = "Window Location:";
+			// 
+			// WindowSizeLabel
+			// 
+			WindowSizeLabel.AutoSize = true;
+			WindowSizeLabel.BackColor = Color.Transparent;
+			WindowSizeLabel.FlatStyle = FlatStyle.Flat;
+			WindowSizeLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+			WindowSizeLabel.ImageAlign = ContentAlignment.MiddleLeft;
+			WindowSizeLabel.Location = new Point(12, 86);
+			WindowSizeLabel.Name = "WindowSizeLabel";
+			WindowSizeLabel.Size = new Size(132, 25);
+			WindowSizeLabel.TabIndex = 18;
+			WindowSizeLabel.Text = "Window Size:";
+			// 
+			// OpenBackgroundImageButton
+			// 
+			OpenBackgroundImageButton.Location = new Point(12, 383);
+			OpenBackgroundImageButton.Name = "OpenBackgroundImageButton";
+			OpenBackgroundImageButton.Size = new Size(120, 58);
+			OpenBackgroundImageButton.TabIndex = 19;
+			OpenBackgroundImageButton.Text = "Open Background Image";
+			OpenBackgroundImageButton.UseVisualStyleBackColor = true;
+			OpenBackgroundImageButton.Click += OpenBackgroundImageButton_Click;
+			// 
 			// V3KeyManager
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(775, 450);
+			Controls.Add(OpenBackgroundImageButton);
+			Controls.Add(WindowSizeLabel);
+			Controls.Add(WindowLocationLabel);
+			Controls.Add(FXAALabel);
+			Controls.Add(MouseSpeedLabel);
+			Controls.Add(RenderResolutionLabel);
+			Controls.Add(WindowModeLabel);
+			Controls.Add(InputTypeLabel);
+			Controls.Add(VersionLabel);
+			Controls.Add(BackgroundImage);
 			Controls.Add(LaunchGameButton);
 			Controls.Add(ResetChangesButton);
 			Controls.Add(EditKeyboardSettingsButton);
@@ -149,7 +294,9 @@
 			Controls.Add(OpenConfigButton);
 			Name = "V3KeyManager";
 			Text = "V3KeyManager";
+			((System.ComponentModel.ISupportInitialize)BackgroundImage).EndInit();
 			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion
@@ -164,5 +311,15 @@
 		private Button EditKeyboardSettingsButton;
 		private Button ResetChangesButton;
 		private Button LaunchGameButton;
+		private PictureBox BackgroundImage;
+		private Label VersionLabel;
+		private Label InputTypeLabel;
+		private Label WindowModeLabel;
+		private Label RenderResolutionLabel;
+		private Label MouseSpeedLabel;
+		private Label FXAALabel;
+		private Label WindowLocationLabel;
+		private Label WindowSizeLabel;
+		private Button OpenBackgroundImageButton;
 	}
 }
