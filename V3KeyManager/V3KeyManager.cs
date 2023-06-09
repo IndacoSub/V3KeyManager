@@ -1,9 +1,11 @@
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace V3KeyManager
 {
 	public partial class V3KeyManager : Form
 	{
+		string CurrentConfigFile = "";
 		ConfigFile CurrentConfig = new ConfigFile();
 		ConfigFile OpenedConfig;
 
@@ -92,10 +94,11 @@ namespace V3KeyManager
 			{
 				return;
 			}
+			CurrentConfigFile = ofd.FileName;
 			CurrentConfig = new ConfigFile();
 			OpenedConfig = new ConfigFile();
-			CurrentConfig.Load(ofd.FileName);
-			OpenedConfig.Load(ofd.FileName);
+			CurrentConfig.Load(CurrentConfigFile);
+			OpenedConfig.Load(CurrentConfigFile);
 			UpdateGUIFromConfig();
 		}
 
@@ -135,6 +138,63 @@ namespace V3KeyManager
 			{
 				Bitmap b = new Bitmap(ofd.FileName);
 				BackgroundImage.Image = b;
+			}
+		}
+
+		private void ResetChangesButton_Click(object sender, EventArgs e)
+		{
+			if (OpenedConfig == null)
+			{
+				return;
+			}
+
+			CurrentConfig.Load(CurrentConfigFile);
+			UpdateGUIFromConfig();
+		}
+
+		private void LaunchGameButton_Click(object sender, EventArgs e)
+		{
+			if (OpenedConfig == null)
+			{
+				return;
+			}
+
+			bool xbox_version = false;
+			string config_loc = Directory.GetParent(CurrentConfigFile).FullName;
+			string xbox_version_file = "Dangan3Desktop.exe";
+			string steam_version_file = "Dangan3Win.exe";
+			string xbox_config = Path.Combine(config_loc, "config.txt");
+			string xbox_path = Path.Combine(config_loc, xbox_version_file);
+			string steam_config = Path.Combine(config_loc, "config.txt");
+			string steam_path = Path.Combine(config_loc, steam_version_file);
+
+			if(File.Exists(xbox_path) && File.Exists(steam_path))
+			{
+				Debug.WriteLine("(1) " + xbox_path + " / " + steam_path);
+				return;
+			}
+
+			if(!File.Exists(xbox_path) && !File.Exists(steam_path))
+			{
+				Debug.WriteLine("(2) " + xbox_path + " / " + steam_path);
+				return;
+			}
+
+			if(File.Exists(xbox_path))
+			{
+				xbox_version = true;
+			}
+
+			if(xbox_version)
+			{
+				CurrentConfig.Save(xbox_config);
+				Debug.WriteLine(xbox_path);
+				Process.Start(xbox_path, "");
+			} else
+			{
+				CurrentConfig.Save(steam_config);
+				Debug.WriteLine(steam_path);
+				Process.Start(steam_path, "");
 			}
 		}
 	}

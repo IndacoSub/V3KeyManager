@@ -134,6 +134,7 @@
 			ResetChangesButton.TabIndex = 8;
 			ResetChangesButton.Text = "Reset Changes";
 			ResetChangesButton.UseVisualStyleBackColor = true;
+			ResetChangesButton.Click += ResetChangesButton_Click;
 			// 
 			// LaunchGameButton
 			// 
@@ -143,6 +144,7 @@
 			LaunchGameButton.TabIndex = 9;
 			LaunchGameButton.Text = "Launch Game";
 			LaunchGameButton.UseVisualStyleBackColor = true;
+			LaunchGameButton.Click += LaunchGameButton_Click;
 			// 
 			// BackgroundImage
 			// 
