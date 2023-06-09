@@ -29,7 +29,7 @@ namespace V3KeyManager
 
 		private void UpdateGUIStrings()
 		{
-			string window_mode = CurrentConfig.GetHR(CurrentConfig.Window.WindowMode);
+			string window_mode = ConfigFile.GetHR(CurrentConfig.Window.WindowMode, false);
 
 			VersionLabel.Text = "Version: " + CurrentConfig.Version.GameVersion;
 			WindowModeLabel.Text = "Window Mode: " + window_mode;
@@ -38,9 +38,9 @@ namespace V3KeyManager
 			RenderResolutionLabel.Text = "Render Resolution: " + (window_mode == "Fullscreen" ?
 				CurrentConfig.Window.FullscreenRenderSizeX.ToString() + "x" + CurrentConfig.Window.FullscreenRenderSizeY.ToString()
 				: CurrentConfig.Window.RenderSizeX.ToString() + "x" + CurrentConfig.Window.RenderSizeY.ToString());
-			InputTypeLabel.Text = "Input: " + CurrentConfig.GetHR(CurrentConfig.Pad.PadHelpType);
+			InputTypeLabel.Text = "Input: " + ConfigFile.GetHR(CurrentConfig.Pad.PadHelpType, false);
 			MouseSpeedLabel.Text = "Mouse Speed: " + CurrentConfig.PadString(CurrentConfig.MakeDouble(CurrentConfig.Mouse.MouseSpeed.ToString()), 8, '0');
-			FXAALabel.Text = "FXAA: " + CurrentConfig.GetHR(CurrentConfig.Effect.FXAA);
+			FXAALabel.Text = "FXAA: " + ConfigFile.GetHR(CurrentConfig.Effect.FXAA, false);
 		}
 
 		private void UpdateGUIColors()
@@ -187,10 +187,10 @@ namespace V3KeyManager
 
 		private void CreateDefaultConfigFile_Click(object sender, EventArgs e)
 		{
-			
+
 			ConfigFile default_config = new ConfigFile();
 			SaveFileDialog saveFileDialog = new SaveFileDialog();
-			if(saveFileDialog.ShowDialog() == DialogResult.OK)
+			if (saveFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				default_config.Save(saveFileDialog.FileName);
 			}
@@ -198,6 +198,7 @@ namespace V3KeyManager
 
 		private void EditVersionButton_Click(object sender, EventArgs e)
 		{
+
 			if (OpenedConfig == null)
 			{
 				return;
@@ -217,13 +218,14 @@ namespace V3KeyManager
 
 		private void EditWindowSettingsButton_Click(object sender, EventArgs e)
 		{
+
 			if (OpenedConfig == null)
 			{
 				return;
 			}
 
 			EditWindowSettings editWindowSettings = new EditWindowSettings();
-			editWindowSettings.CurrentWindowModeLabel.Text = "Current Window Mode: " + CurrentConfig.GetHR(CurrentConfig.Window.WindowMode);
+			editWindowSettings.CurrentWindowModeLabel.Text = "Current Window Mode: " + ConfigFile.GetHR(CurrentConfig.Window.WindowMode, false);
 			editWindowSettings.CurrentWindowLocationLabel.Text = "Current Window Location: [" + CurrentConfig.Window.WindowTopX.ToString() + ", " + CurrentConfig.Window.WindowTopY.ToString() + "]";
 			editWindowSettings.CurrentWindowSizeLabel.Text = "Current Window Size: " + CurrentConfig.Window.WindowSizeX.ToString() + "x" + CurrentConfig.Window.WindowSizeY.ToString();
 			editWindowSettings.CurrentRenderSizeLabel.Text = "Current Render Size: " + CurrentConfig.Window.RenderSizeX.ToString() + "x" + CurrentConfig.Window.RenderSizeY.ToString();
@@ -243,6 +245,26 @@ namespace V3KeyManager
 			}
 			editWindowSettings.Close();
 			editWindowSettings.Dispose();
+			UpdateGUIFromConfig();
+		}
+
+		private void EditPadSettingsButton_Click(object sender, EventArgs e)
+		{
+
+			if(OpenedConfig == null)
+			{
+				return;
+			}
+
+			EditPadSettings editPadSettings = new EditPadSettings();
+			editPadSettings.CurrentInputTypeLabel.Text = "Current Input Type: " + ConfigFile.GetHR(CurrentConfig.Pad.PadHelpType, false);
+			DialogResult res = editPadSettings.ShowDialog();
+			if(res == DialogResult.OK)
+			{
+				CurrentConfig.Pad.PadHelpType = ConfigFile.GetHR(editPadSettings.InputTypeComboBox.Text, true);
+			}
+			editPadSettings.Close();
+			editPadSettings.Dispose();
 			UpdateGUIFromConfig();
 		}
 	}

@@ -266,24 +266,29 @@ namespace V3KeyManager
 		}
 
 		// "Human Readable"
-		public string GetHR(string str)
+		static public string GetHR(string str, bool reverse)
 		{
-			switch (str)
+
+			Dictionary<string, string> terms = new Dictionary<string, string>()
 			{
-				case "off":
-					return "Off";
-				case "on":
-					return "On";
-				case "pad":
-					return "Controller";
-				case "windowed":
-					return "Windowed";
-				case "borderless":
-					return "Borderless";
-				case "fullscreen":
-					return "Fullscreen";
-				default:
-					return "Unknown";
+				{ "off", "Off" },
+				{ "on", "On" },
+				{ "pad", "Controller" },
+				{ "keyboard_fr", "Keyboard and Mouse (AZERTY)" },
+				{ "keyboard", "Keyboard and Mouse (QWERTY)" },
+				{ "windowed", "Windowed" },
+				{ "borderless", "Borderless" },
+				{ "fullscreen", "Fullscreen" },
+			};
+
+			if (!reverse)
+			{
+				string ret = terms.FirstOrDefault(x => x.Key == str).Value;
+				return ret;
+			} else
+			{
+				string ret = terms.FirstOrDefault(x => x.Value == str).Key;
+				return ret;
 			}
 		}
 	}

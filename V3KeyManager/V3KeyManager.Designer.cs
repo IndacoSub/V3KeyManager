@@ -100,6 +100,7 @@
 			EditPadSettingsButton.TabIndex = 4;
 			EditPadSettingsButton.Text = "Edit Pad Settings";
 			EditPadSettingsButton.UseVisualStyleBackColor = true;
+			EditPadSettingsButton.Click += EditPadSettingsButton_Click;
 			// 
 			// EditMouseSettingsButton
 			// 
