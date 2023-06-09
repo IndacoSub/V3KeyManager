@@ -8,11 +8,11 @@ namespace V3KeyManager.Config
 {
     internal class WindowSettings
     {
-        public string WindowMode = "borderless";
+        public string WindowMode = "windowed";
         public int WindowTopX = 0;
         public int WindowTopY = 0;
         public int WindowSizeX = 1920;
-        public int WindowSizeY = 1080;
+        public int WindowSizeY = 1061;
         public int RenderSizeX = 1920;
         public int RenderSizeY = 1080;
         public int FullscreenRenderSizeX = 1920;

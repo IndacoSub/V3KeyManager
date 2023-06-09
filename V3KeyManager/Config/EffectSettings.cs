@@ -8,6 +8,6 @@ namespace V3KeyManager
 {
 	internal class EffectSettings
 	{
-		public string FXAA = "off";
+		public string FXAA = "on";
 	}
 }

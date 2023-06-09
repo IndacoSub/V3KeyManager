@@ -8,6 +8,6 @@ namespace V3KeyManager.Config
 {
 	internal class VersionSettings
 	{
-		public string GameVersion = "1.00";
+		public string GameVersion = "1.01";
 	}
 }
