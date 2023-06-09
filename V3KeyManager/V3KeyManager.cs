@@ -271,20 +271,39 @@ namespace V3KeyManager
 		private void EditMouseSettingsButton_Click(object sender, EventArgs e)
 		{
 
-			if(OpenedConfig == null)
+			if (OpenedConfig == null)
 			{
 				return;
 			}
 
 			EditMouseSettings editMouseSettings = new EditMouseSettings();
-			editMouseSettings.CurrentMouseSpeedLabel.Text = CurrentConfig.PadString(CurrentConfig.MakeDouble(CurrentConfig.Mouse.MouseSpeed.ToString()), 8, '0');
+			editMouseSettings.CurrentMouseSpeedLabel.Text = "Current Mouse Speed: " + CurrentConfig.PadString(CurrentConfig.MakeDouble(CurrentConfig.Mouse.MouseSpeed.ToString()), 8, '0');
 			DialogResult res = editMouseSettings.ShowDialog();
-			if(res == DialogResult.OK)
+			if (res == DialogResult.OK)
 			{
 				CurrentConfig.Mouse.MouseSpeed = double.Parse(editMouseSettings.NewMouseSpeedTextbox.Text);
 			}
 			editMouseSettings.Close();
 			editMouseSettings.Dispose();
+			UpdateGUIFromConfig();
+		}
+
+		private void EditEffectSettingsButton_Click(object sender, EventArgs e)
+		{
+			if (OpenedConfig == null)
+			{
+				return;
+			}
+
+			EditEffectSettings editEffectSettings = new EditEffectSettings();
+			editEffectSettings.CurrentFXAALabel.Text = "Current FXAA: " + ConfigFile.GetHR(CurrentConfig.Effect.FXAA, false);
+			DialogResult res = editEffectSettings.ShowDialog();
+			if(res == DialogResult.OK)
+			{
+				CurrentConfig.Effect.FXAA = ConfigFile.GetHR(editEffectSettings.ActivateFXAACheckbox.Checked ? "On" : "Off", true);
+			}
+			editEffectSettings.Close();
+			editEffectSettings.Dispose();
 			UpdateGUIFromConfig();
 		}
 	}

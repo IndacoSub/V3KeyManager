@@ -120,6 +120,7 @@
 			EditEffectSettingsButton.TabIndex = 6;
 			EditEffectSettingsButton.Text = "Edit Effect Settings";
 			EditEffectSettingsButton.UseVisualStyleBackColor = true;
+			EditEffectSettingsButton.Click += EditEffectSettingsButton_Click;
 			// 
 			// EditKeyboardSettingsButton
 			// 
