@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			InsertVersionTextbox = new TextBox();
-			SetVersionButton = new Button();
+			SetButton = new Button();
 			NewVersionLabel = new Label();
 			CurrentVersionLabel = new Label();
 			SuspendLayout();
@@ -41,15 +41,15 @@
 			InsertVersionTextbox.Size = new Size(86, 23);
 			InsertVersionTextbox.TabIndex = 0;
 			// 
-			// SetVersionButton
+			// SetButton
 			// 
-			SetVersionButton.Location = new Point(199, 35);
-			SetVersionButton.Name = "SetVersionButton";
-			SetVersionButton.Size = new Size(75, 23);
-			SetVersionButton.TabIndex = 1;
-			SetVersionButton.Text = "Set";
-			SetVersionButton.UseVisualStyleBackColor = true;
-			SetVersionButton.Click += SetVersionButton_Click;
+			SetButton.Location = new Point(12, 69);
+			SetButton.Name = "SetButton";
+			SetButton.Size = new Size(181, 23);
+			SetButton.TabIndex = 1;
+			SetButton.Text = "Set";
+			SetButton.UseVisualStyleBackColor = true;
+			SetButton.Click += SetVersionButton_Click;
 			// 
 			// NewVersionLabel
 			// 
@@ -73,10 +73,10 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(281, 67);
+			ClientSize = new Size(210, 104);
 			Controls.Add(CurrentVersionLabel);
 			Controls.Add(NewVersionLabel);
-			Controls.Add(SetVersionButton);
+			Controls.Add(SetButton);
 			Controls.Add(InsertVersionTextbox);
 			Name = "EditVersion";
 			Text = "EditVersion";
@@ -87,7 +87,7 @@
 		#endregion
 
 		public TextBox InsertVersionTextbox;
-		public Button SetVersionButton;
+		public Button SetButton;
 		public Label NewVersionLabel;
 		public Label CurrentVersionLabel;
 	}

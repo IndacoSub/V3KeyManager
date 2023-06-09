@@ -251,7 +251,7 @@ namespace V3KeyManager
 		private void EditPadSettingsButton_Click(object sender, EventArgs e)
 		{
 
-			if(OpenedConfig == null)
+			if (OpenedConfig == null)
 			{
 				return;
 			}
@@ -259,12 +259,32 @@ namespace V3KeyManager
 			EditPadSettings editPadSettings = new EditPadSettings();
 			editPadSettings.CurrentInputTypeLabel.Text = "Current Input Type: " + ConfigFile.GetHR(CurrentConfig.Pad.PadHelpType, false);
 			DialogResult res = editPadSettings.ShowDialog();
-			if(res == DialogResult.OK)
+			if (res == DialogResult.OK)
 			{
 				CurrentConfig.Pad.PadHelpType = ConfigFile.GetHR(editPadSettings.InputTypeComboBox.Text, true);
 			}
 			editPadSettings.Close();
 			editPadSettings.Dispose();
+			UpdateGUIFromConfig();
+		}
+
+		private void EditMouseSettingsButton_Click(object sender, EventArgs e)
+		{
+
+			if(OpenedConfig == null)
+			{
+				return;
+			}
+
+			EditMouseSettings editMouseSettings = new EditMouseSettings();
+			editMouseSettings.CurrentMouseSpeedLabel.Text = CurrentConfig.PadString(CurrentConfig.MakeDouble(CurrentConfig.Mouse.MouseSpeed.ToString()), 8, '0');
+			DialogResult res = editMouseSettings.ShowDialog();
+			if(res == DialogResult.OK)
+			{
+				CurrentConfig.Mouse.MouseSpeed = double.Parse(editMouseSettings.NewMouseSpeedTextbox.Text);
+			}
+			editMouseSettings.Close();
+			editMouseSettings.Dispose();
 			UpdateGUIFromConfig();
 		}
 	}

@@ -110,6 +110,7 @@
 			EditMouseSettingsButton.TabIndex = 5;
 			EditMouseSettingsButton.Text = "Edit Mouse Settings";
 			EditMouseSettingsButton.UseVisualStyleBackColor = true;
+			EditMouseSettingsButton.Click += EditMouseSettingsButton_Click;
 			// 
 			// EditEffectSettingsButton
 			// 
