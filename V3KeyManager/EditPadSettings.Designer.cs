@@ -58,14 +58,14 @@
 			InputTypeComboBox.Items.AddRange(new object[] { "Controller", "Keyboard and Mouse (QWERTY)", "Keyboard and Mouse (AZERTY)" });
 			InputTypeComboBox.Location = new Point(108, 38);
 			InputTypeComboBox.Name = "InputTypeComboBox";
-			InputTypeComboBox.Size = new Size(185, 23);
+			InputTypeComboBox.Size = new Size(204, 23);
 			InputTypeComboBox.TabIndex = 2;
 			// 
 			// SetButton
 			// 
 			SetButton.Location = new Point(12, 67);
 			SetButton.Name = "SetButton";
-			SetButton.Size = new Size(281, 23);
+			SetButton.Size = new Size(300, 23);
 			SetButton.TabIndex = 3;
 			SetButton.Text = "Set";
 			SetButton.UseVisualStyleBackColor = true;
@@ -75,7 +75,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(305, 98);
+			ClientSize = new Size(324, 98);
 			Controls.Add(SetButton);
 			Controls.Add(InputTypeComboBox);
 			Controls.Add(NewInputTypeLabel);

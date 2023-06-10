@@ -233,7 +233,11 @@ namespace V3KeyManager
 			}
 
 			EditVersion editVersion = new EditVersion();
+
 			editVersion.CurrentVersionLabel.Text = "Current Version: " + CurrentConfig.Version.GameVersion;
+
+			editVersion.InsertVersionTextbox.Text = CurrentConfig.Version.GameVersion;
+
 			DialogResult res = editVersion.ShowDialog();
 			if (res == DialogResult.OK)
 			{
@@ -252,12 +256,31 @@ namespace V3KeyManager
 				return;
 			}
 
+			string window_mode = ConfigFile.GetHR(CurrentConfig.Window.WindowMode, false);
+
 			EditWindowSettings editWindowSettings = new EditWindowSettings();
-			editWindowSettings.CurrentWindowModeLabel.Text = "Current Window Mode: " + ConfigFile.GetHR(CurrentConfig.Window.WindowMode, false);
+
+			editWindowSettings.CurrentWindowModeLabel.Text = "Current Window Mode: " + window_mode;
 			editWindowSettings.CurrentWindowLocationLabel.Text = "Current Window Location: [" + CurrentConfig.Window.WindowTopX.ToString() + ", " + CurrentConfig.Window.WindowTopY.ToString() + "]";
 			editWindowSettings.CurrentWindowSizeLabel.Text = "Current Window Size: " + CurrentConfig.Window.WindowSizeX.ToString() + "x" + CurrentConfig.Window.WindowSizeY.ToString();
 			editWindowSettings.CurrentRenderSizeLabel.Text = "Current Render Size: " + CurrentConfig.Window.RenderSizeX.ToString() + "x" + CurrentConfig.Window.RenderSizeY.ToString();
 			editWindowSettings.CurrentFullscreenRenderSizeLabel.Text = "Current Fullscreen Render Size: " + CurrentConfig.Window.FullscreenRenderSizeX.ToString() + "x" + CurrentConfig.Window.FullscreenRenderSizeY.ToString();
+			
+			editWindowSettings.NewWindowModeComboBox.SelectedIndex = editWindowSettings.NewWindowModeComboBox.FindStringExact(window_mode);
+			editWindowSettings.NewWindowLocationX.Text = CurrentConfig.Window.WindowTopX.ToString();
+			editWindowSettings.NewWindowLocationY.Text = CurrentConfig.Window.WindowTopY.ToString();
+			editWindowSettings.NewWindowSizeX.Text = CurrentConfig.Window.WindowSizeX.ToString();
+			editWindowSettings.NewWindowSizeY.Text = CurrentConfig.Window.WindowSizeY.ToString();
+			editWindowSettings.NewRenderSizeX.Text = CurrentConfig.Window.RenderSizeX.ToString();
+			editWindowSettings.NewRenderSizeY.Text = CurrentConfig.Window.RenderSizeY.ToString();
+			editWindowSettings.NewFullscreenRenderSizeX.Text = CurrentConfig.Window.FullscreenRenderSizeX.ToString();
+			editWindowSettings.NewFullscreenRenderSizeY.Text = CurrentConfig.Window.FullscreenRenderSizeY.ToString();
+
+			if (editWindowSettings.NewWindowModeComboBox.SelectedIndex == -1)
+			{
+				Debug.WriteLine("Invalid Window Settings combobox index!");
+			}
+
 			DialogResult res = editWindowSettings.ShowDialog();
 			if (res == DialogResult.OK)
 			{
@@ -284,8 +307,19 @@ namespace V3KeyManager
 				return;
 			}
 
+			string input_type = ConfigFile.GetHR(CurrentConfig.Pad.PadHelpType, false);
+
 			EditPadSettings editPadSettings = new EditPadSettings();
-			editPadSettings.CurrentInputTypeLabel.Text = "Current Input Type: " + ConfigFile.GetHR(CurrentConfig.Pad.PadHelpType, false);
+
+			editPadSettings.CurrentInputTypeLabel.Text = "Current Input Type: " + input_type;
+
+			editPadSettings.InputTypeComboBox.SelectedIndex = editPadSettings.InputTypeComboBox.FindStringExact(input_type);
+
+			if(editPadSettings.InputTypeComboBox.SelectedIndex == -1)
+			{
+				Debug.WriteLine("Invalid Pad Settings combobox index!");
+			}
+
 			DialogResult res = editPadSettings.ShowDialog();
 			if (res == DialogResult.OK)
 			{
@@ -304,8 +338,14 @@ namespace V3KeyManager
 				return;
 			}
 
+			string current_speed = ConfigFile.PadString(ConfigFile.MakeDouble(CurrentConfig.Mouse.MouseSpeed.ToString()), 8, '0');
+
 			EditMouseSettings editMouseSettings = new EditMouseSettings();
-			editMouseSettings.CurrentMouseSpeedLabel.Text = "Current Mouse Speed: " + ConfigFile.PadString(ConfigFile.MakeDouble(CurrentConfig.Mouse.MouseSpeed.ToString()), 8, '0');
+
+			editMouseSettings.CurrentMouseSpeedLabel.Text = "Current Mouse Speed: " + current_speed;
+
+			editMouseSettings.NewMouseSpeedTextbox.Text = current_speed;
+			
 			DialogResult res = editMouseSettings.ShowDialog();
 			if (res == DialogResult.OK)
 			{
@@ -324,8 +364,14 @@ namespace V3KeyManager
 				return;
 			}
 
+			string current_fxaa = ConfigFile.GetHR(CurrentConfig.Effect.FXAA, false);
+
 			EditEffectSettings editEffectSettings = new EditEffectSettings();
-			editEffectSettings.CurrentFXAALabel.Text = "Current FXAA: " + ConfigFile.GetHR(CurrentConfig.Effect.FXAA, false);
+
+			editEffectSettings.CurrentFXAALabel.Text = "Current FXAA: " + current_fxaa;
+
+			editEffectSettings.ActivateFXAACheckbox.Checked = current_fxaa == "On";
+
 			DialogResult res = editEffectSettings.ShowDialog();
 			if (res == DialogResult.OK)
 			{
