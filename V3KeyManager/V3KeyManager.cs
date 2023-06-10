@@ -131,6 +131,11 @@ namespace V3KeyManager
 
 		private void SaveConfigButton_Click(object sender, EventArgs e)
 		{
+			if (OpenedConfig == null)
+			{
+				return;
+			}
+
 			SaveFileDialog sfd = new SaveFileDialog();
 			if (sfd.ShowDialog() != DialogResult.OK)
 			{
@@ -141,6 +146,7 @@ namespace V3KeyManager
 
 		private void OpenBackgroundImageButton_Click(object sender, EventArgs e)
 		{
+
 			OpenFileDialog ofd = new OpenFileDialog();
 			ofd.Filter = "PNG files|*.png|JPEG files|*.jpg|All files|*.*";
 			if (ofd.ShowDialog() == DialogResult.OK)
