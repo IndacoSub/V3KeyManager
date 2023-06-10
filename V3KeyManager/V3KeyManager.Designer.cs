@@ -330,7 +330,7 @@
 		private Button EditKeyboardSettingsButton;
 		private Button ResetChangesButton;
 		private Button LaunchGameButton;
-		private PictureBox BackgroundImage;
+		private new PictureBox BackgroundImage;
 		private Label VersionLabel;
 		private Label InputTypeLabel;
 		private Label WindowModeLabel;
