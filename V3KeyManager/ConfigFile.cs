@@ -12,6 +12,8 @@ namespace V3KeyManager
 
 	internal class ConfigFile
 	{
+		public string Filename = "DefaultFilename";
+		public string FullFilename = "DefaultFullFilename"; // Also includes path
 		public VersionSettings Version = new VersionSettings();
 		public WindowSettings Window = new WindowSettings();
 		public PadSettings Pad = new PadSettings();
@@ -126,6 +128,9 @@ namespace V3KeyManager
 			{
 				return false;
 			}
+
+			this.Filename = Path.GetFileName(file);
+			this.FullFilename = file;
 
 			Debug.WriteLine(file + " is a valid file!");
 

@@ -54,6 +54,7 @@
 			// 
 			// InputTypeComboBox
 			// 
+			InputTypeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 			InputTypeComboBox.FormattingEnabled = true;
 			InputTypeComboBox.Items.AddRange(new object[] { "Controller", "Keyboard and Mouse (QWERTY)", "Keyboard and Mouse (AZERTY)" });
 			InputTypeComboBox.Location = new Point(108, 38);

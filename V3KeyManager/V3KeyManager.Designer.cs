@@ -49,6 +49,7 @@
 			WindowSizeLabel = new Label();
 			OpenBackgroundImageButton = new Button();
 			CreateDefaultConfigFile = new Button();
+			CurrentFileNameLabel = new Label();
 			((System.ComponentModel.ISupportInitialize)BackgroundImage).BeginInit();
 			SuspendLayout();
 			// 
@@ -168,7 +169,7 @@
 			VersionLabel.FlatStyle = FlatStyle.Flat;
 			VersionLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
 			VersionLabel.ImageAlign = ContentAlignment.MiddleLeft;
-			VersionLabel.Location = new Point(12, 11);
+			VersionLabel.Location = new Point(12, 34);
 			VersionLabel.Name = "VersionLabel";
 			VersionLabel.Size = new Size(84, 25);
 			VersionLabel.TabIndex = 11;
@@ -181,7 +182,7 @@
 			InputTypeLabel.FlatStyle = FlatStyle.Flat;
 			InputTypeLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
 			InputTypeLabel.ImageAlign = ContentAlignment.MiddleLeft;
-			InputTypeLabel.Location = new Point(12, 136);
+			InputTypeLabel.Location = new Point(12, 159);
 			InputTypeLabel.Name = "InputTypeLabel";
 			InputTypeLabel.Size = new Size(66, 25);
 			InputTypeLabel.TabIndex = 12;
@@ -194,7 +195,7 @@
 			WindowModeLabel.FlatStyle = FlatStyle.Flat;
 			WindowModeLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
 			WindowModeLabel.ImageAlign = ContentAlignment.MiddleLeft;
-			WindowModeLabel.Location = new Point(12, 36);
+			WindowModeLabel.Location = new Point(12, 59);
 			WindowModeLabel.Name = "WindowModeLabel";
 			WindowModeLabel.Size = new Size(149, 25);
 			WindowModeLabel.TabIndex = 13;
@@ -207,7 +208,7 @@
 			RenderResolutionLabel.FlatStyle = FlatStyle.Flat;
 			RenderResolutionLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
 			RenderResolutionLabel.ImageAlign = ContentAlignment.MiddleLeft;
-			RenderResolutionLabel.Location = new Point(12, 111);
+			RenderResolutionLabel.Location = new Point(12, 134);
 			RenderResolutionLabel.Name = "RenderResolutionLabel";
 			RenderResolutionLabel.Size = new Size(181, 25);
 			RenderResolutionLabel.TabIndex = 14;
@@ -220,7 +221,7 @@
 			MouseSpeedLabel.FlatStyle = FlatStyle.Flat;
 			MouseSpeedLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
 			MouseSpeedLabel.ImageAlign = ContentAlignment.MiddleLeft;
-			MouseSpeedLabel.Location = new Point(12, 161);
+			MouseSpeedLabel.Location = new Point(12, 184);
 			MouseSpeedLabel.Name = "MouseSpeedLabel";
 			MouseSpeedLabel.Size = new Size(137, 25);
 			MouseSpeedLabel.TabIndex = 15;
@@ -233,7 +234,7 @@
 			FXAALabel.FlatStyle = FlatStyle.Flat;
 			FXAALabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
 			FXAALabel.ImageAlign = ContentAlignment.MiddleLeft;
-			FXAALabel.Location = new Point(12, 186);
+			FXAALabel.Location = new Point(12, 209);
 			FXAALabel.Name = "FXAALabel";
 			FXAALabel.Size = new Size(65, 25);
 			FXAALabel.TabIndex = 16;
@@ -246,7 +247,7 @@
 			WindowLocationLabel.FlatStyle = FlatStyle.Flat;
 			WindowLocationLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
 			WindowLocationLabel.ImageAlign = ContentAlignment.MiddleLeft;
-			WindowLocationLabel.Location = new Point(12, 61);
+			WindowLocationLabel.Location = new Point(12, 84);
 			WindowLocationLabel.Name = "WindowLocationLabel";
 			WindowLocationLabel.Size = new Size(174, 25);
 			WindowLocationLabel.TabIndex = 17;
@@ -259,7 +260,7 @@
 			WindowSizeLabel.FlatStyle = FlatStyle.Flat;
 			WindowSizeLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
 			WindowSizeLabel.ImageAlign = ContentAlignment.MiddleLeft;
-			WindowSizeLabel.Location = new Point(12, 86);
+			WindowSizeLabel.Location = new Point(12, 109);
 			WindowSizeLabel.Name = "WindowSizeLabel";
 			WindowSizeLabel.Size = new Size(132, 25);
 			WindowSizeLabel.TabIndex = 18;
@@ -285,11 +286,25 @@
 			CreateDefaultConfigFile.UseVisualStyleBackColor = true;
 			CreateDefaultConfigFile.Click += CreateDefaultConfigFile_Click;
 			// 
+			// CurrentFileNameLabel
+			// 
+			CurrentFileNameLabel.AutoSize = true;
+			CurrentFileNameLabel.BackColor = Color.Transparent;
+			CurrentFileNameLabel.FlatStyle = FlatStyle.Flat;
+			CurrentFileNameLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+			CurrentFileNameLabel.ImageAlign = ContentAlignment.MiddleLeft;
+			CurrentFileNameLabel.Location = new Point(12, 9);
+			CurrentFileNameLabel.Name = "CurrentFileNameLabel";
+			CurrentFileNameLabel.Size = new Size(178, 25);
+			CurrentFileNameLabel.TabIndex = 21;
+			CurrentFileNameLabel.Text = "Current File Name:";
+			// 
 			// V3KeyManager
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(775, 450);
+			Controls.Add(CurrentFileNameLabel);
 			Controls.Add(CreateDefaultConfigFile);
 			Controls.Add(OpenBackgroundImageButton);
 			Controls.Add(WindowSizeLabel);
@@ -341,5 +356,6 @@
 		private Label WindowSizeLabel;
 		private Button OpenBackgroundImageButton;
 		private Button CreateDefaultConfigFile;
+		private Label CurrentFileNameLabel;
 	}
 }

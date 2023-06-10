@@ -8,7 +8,6 @@ namespace V3KeyManager
 		Color DefaultTextColor = Color.Black;
 		Color ChangedTextColor = Color.HotPink;
 
-		string CurrentConfigFile = "";
 		ConfigFile CurrentConfig = new ConfigFile();
 		ConfigFile OpenedConfig = null;
 
@@ -20,6 +19,7 @@ namespace V3KeyManager
 
 		private void Init()
 		{
+			CurrentFileNameLabel.Parent = BackgroundImage;
 			VersionLabel.Parent = BackgroundImage;
 			WindowModeLabel.Parent = BackgroundImage;
 			WindowLocationLabel.Parent = BackgroundImage;
@@ -29,6 +29,7 @@ namespace V3KeyManager
 			MouseSpeedLabel.Parent = BackgroundImage;
 			FXAALabel.Parent = BackgroundImage;
 
+			CurrentFileNameLabel.ForeColor = DefaultTextColor;
 			VersionLabel.ForeColor = DefaultTextColor;
 			WindowModeLabel.ForeColor = DefaultTextColor;
 			WindowLocationLabel.ForeColor = DefaultTextColor;
@@ -37,6 +38,8 @@ namespace V3KeyManager
 			InputTypeLabel.ForeColor = DefaultTextColor;
 			MouseSpeedLabel.ForeColor = DefaultTextColor;
 			FXAALabel.ForeColor = DefaultTextColor;
+
+			CurrentFileNameLabel.Text = "Current File: None";
 		}
 
 		private void UpdateGUIStrings()
@@ -111,15 +114,16 @@ namespace V3KeyManager
 			{
 				return;
 			}
-			CurrentConfigFile = ofd.FileName;
+			string CurrentConfigFile = ofd.FileName;
 			CurrentConfig = new ConfigFile();
 			bool load_current = CurrentConfig.Load(CurrentConfigFile);
-			if(load_current)
+			if (load_current)
 			{
+				CurrentFileNameLabel.Text = "Current File: " + CurrentConfig.Filename;
 				OpenedConfig = new ConfigFile();
 				bool load_opened = OpenedConfig.Load(CurrentConfigFile);
 				if (load_opened) // Should not matter, but just in case
-				{ 
+				{
 					UpdateGUIFromConfig();
 				}
 			}
@@ -148,7 +152,8 @@ namespace V3KeyManager
 					{
 						BackgroundImage.Image = b;
 					}
-				} catch(Exception ex)
+				}
+				catch (Exception ex)
 				{
 					Debug.WriteLine(ex.Message);
 				}
@@ -162,7 +167,7 @@ namespace V3KeyManager
 				return;
 			}
 
-			CurrentConfig.Load(CurrentConfigFile);
+			CurrentConfig.Load(CurrentConfig.FullFilename);
 			UpdateGUIFromConfig();
 		}
 
@@ -174,7 +179,7 @@ namespace V3KeyManager
 			}
 
 			bool xbox_version = false;
-			string config_loc = Directory.GetParent(CurrentConfigFile).FullName;
+			string config_loc = Directory.GetParent(CurrentConfig.FullFilename).FullName;
 			string xbox_version_file = "Dangan3Desktop.exe";
 			string steam_version_file = "Dangan3Win.exe";
 			string xbox_config = Path.Combine(config_loc, "config.txt");
@@ -265,7 +270,7 @@ namespace V3KeyManager
 			editWindowSettings.CurrentWindowSizeLabel.Text = "Current Window Size: " + CurrentConfig.Window.WindowSizeX.ToString() + "x" + CurrentConfig.Window.WindowSizeY.ToString();
 			editWindowSettings.CurrentRenderSizeLabel.Text = "Current Render Size: " + CurrentConfig.Window.RenderSizeX.ToString() + "x" + CurrentConfig.Window.RenderSizeY.ToString();
 			editWindowSettings.CurrentFullscreenRenderSizeLabel.Text = "Current Fullscreen Render Size: " + CurrentConfig.Window.FullscreenRenderSizeX.ToString() + "x" + CurrentConfig.Window.FullscreenRenderSizeY.ToString();
-			
+
 			editWindowSettings.NewWindowModeComboBox.SelectedIndex = editWindowSettings.NewWindowModeComboBox.FindStringExact(window_mode);
 			editWindowSettings.NewWindowLocationX.Text = CurrentConfig.Window.WindowTopX.ToString();
 			editWindowSettings.NewWindowLocationY.Text = CurrentConfig.Window.WindowTopY.ToString();
@@ -315,7 +320,7 @@ namespace V3KeyManager
 
 			editPadSettings.InputTypeComboBox.SelectedIndex = editPadSettings.InputTypeComboBox.FindStringExact(input_type);
 
-			if(editPadSettings.InputTypeComboBox.SelectedIndex == -1)
+			if (editPadSettings.InputTypeComboBox.SelectedIndex == -1)
 			{
 				Debug.WriteLine("Invalid Pad Settings combobox index!");
 			}
@@ -345,7 +350,7 @@ namespace V3KeyManager
 			editMouseSettings.CurrentMouseSpeedLabel.Text = "Current Mouse Speed: " + current_speed;
 
 			editMouseSettings.NewMouseSpeedTextbox.Text = current_speed;
-			
+
 			DialogResult res = editMouseSettings.ShowDialog();
 			if (res == DialogResult.OK)
 			{

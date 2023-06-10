@@ -52,13 +52,13 @@
 			// 
 			// NewWindowModeComboBox
 			// 
+			NewWindowModeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 			NewWindowModeComboBox.FormattingEnabled = true;
 			NewWindowModeComboBox.Items.AddRange(new object[] { "Borderless", "Windowed", "Fullscreen" });
 			NewWindowModeComboBox.Location = new Point(150, 176);
 			NewWindowModeComboBox.Name = "NewWindowModeComboBox";
 			NewWindowModeComboBox.Size = new Size(100, 23);
 			NewWindowModeComboBox.TabIndex = 0;
-			NewWindowModeComboBox.Text = "Borderless";
 			// 
 			// NewWindowModeLabel
 			// 
