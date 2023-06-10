@@ -5,9 +5,12 @@ namespace V3KeyManager
 {
 	public partial class V3KeyManager : Form
 	{
+		Color DefaultTextColor = Color.Black;
+		Color ChangedTextColor = Color.HotPink;
+
 		string CurrentConfigFile = "";
 		ConfigFile CurrentConfig = new ConfigFile();
-		ConfigFile OpenedConfig;
+		ConfigFile OpenedConfig = null;
 
 		public V3KeyManager()
 		{
@@ -25,6 +28,15 @@ namespace V3KeyManager
 			InputTypeLabel.Parent = BackgroundImage;
 			MouseSpeedLabel.Parent = BackgroundImage;
 			FXAALabel.Parent = BackgroundImage;
+
+			VersionLabel.ForeColor = DefaultTextColor;
+			WindowModeLabel.ForeColor = DefaultTextColor;
+			WindowLocationLabel.ForeColor = DefaultTextColor;
+			WindowSizeLabel.ForeColor = DefaultTextColor;
+			RenderResolutionLabel.ForeColor = DefaultTextColor;
+			InputTypeLabel.ForeColor = DefaultTextColor;
+			MouseSpeedLabel.ForeColor = DefaultTextColor;
+			FXAALabel.ForeColor = DefaultTextColor;
 		}
 
 		private void UpdateGUIStrings()
@@ -39,7 +51,7 @@ namespace V3KeyManager
 				CurrentConfig.Window.FullscreenRenderSizeX.ToString() + "x" + CurrentConfig.Window.FullscreenRenderSizeY.ToString()
 				: CurrentConfig.Window.RenderSizeX.ToString() + "x" + CurrentConfig.Window.RenderSizeY.ToString());
 			InputTypeLabel.Text = "Input: " + ConfigFile.GetHR(CurrentConfig.Pad.PadHelpType, false);
-			MouseSpeedLabel.Text = "Mouse Speed: " + CurrentConfig.PadString(CurrentConfig.MakeDouble(CurrentConfig.Mouse.MouseSpeed.ToString()), 8, '0');
+			MouseSpeedLabel.Text = "Mouse Speed: " + ConfigFile.PadString(ConfigFile.MakeDouble(CurrentConfig.Mouse.MouseSpeed.ToString()), 8, '0');
 			FXAALabel.Text = "FXAA: " + ConfigFile.GetHR(CurrentConfig.Effect.FXAA, false);
 		}
 
@@ -68,18 +80,18 @@ namespace V3KeyManager
 
 			bool different_fxaa = CurrentConfig.Effect.FXAA != OpenedConfig.Effect.FXAA;
 
-			VersionLabel.ForeColor = different_version ? Color.HotPink : Color.Black;
+			VersionLabel.ForeColor = different_version ? ChangedTextColor : DefaultTextColor;
 
-			WindowModeLabel.ForeColor = different_window_mode ? Color.HotPink : Color.Black;
-			WindowLocationLabel.ForeColor = different_window_top ? Color.HotPink : Color.Black;
-			WindowSizeLabel.ForeColor = different_window_size ? Color.HotPink : Color.Black;
-			RenderResolutionLabel.ForeColor = different_render_size || different_render_fs_size ? Color.HotPink : Color.Black;
+			WindowModeLabel.ForeColor = different_window_mode ? ChangedTextColor : DefaultTextColor;
+			WindowLocationLabel.ForeColor = different_window_top ? ChangedTextColor : DefaultTextColor;
+			WindowSizeLabel.ForeColor = different_window_size ? ChangedTextColor : DefaultTextColor;
+			RenderResolutionLabel.ForeColor = different_render_size || different_render_fs_size ? ChangedTextColor : DefaultTextColor;
 
-			InputTypeLabel.ForeColor = different_input_type ? Color.HotPink : Color.Black;
+			InputTypeLabel.ForeColor = different_input_type ? ChangedTextColor : DefaultTextColor;
 
-			MouseSpeedLabel.ForeColor = different_mouse_speed ? Color.HotPink : Color.Black;
+			MouseSpeedLabel.ForeColor = different_mouse_speed ? ChangedTextColor : DefaultTextColor;
 
-			FXAALabel.ForeColor = different_fxaa ? Color.HotPink : Color.Black;
+			FXAALabel.ForeColor = different_fxaa ? ChangedTextColor : DefaultTextColor;
 
 			BackgroundImage.Refresh();
 		}
@@ -94,16 +106,23 @@ namespace V3KeyManager
 		{
 
 			OpenFileDialog ofd = new OpenFileDialog();
+			ofd.Filter = "Text Files|*.txt|All files|*.*";
 			if (ofd.ShowDialog() != DialogResult.OK)
 			{
 				return;
 			}
 			CurrentConfigFile = ofd.FileName;
 			CurrentConfig = new ConfigFile();
-			OpenedConfig = new ConfigFile();
-			CurrentConfig.Load(CurrentConfigFile);
-			OpenedConfig.Load(CurrentConfigFile);
-			UpdateGUIFromConfig();
+			bool load_current = CurrentConfig.Load(CurrentConfigFile);
+			if(load_current)
+			{
+				OpenedConfig = new ConfigFile();
+				bool load_opened = OpenedConfig.Load(CurrentConfigFile);
+				if (load_opened) // Should not matter, but just in case
+				{ 
+					UpdateGUIFromConfig();
+				}
+			}
 		}
 
 		private void SaveConfigButton_Click(object sender, EventArgs e)
@@ -119,11 +138,20 @@ namespace V3KeyManager
 		private void OpenBackgroundImageButton_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog ofd = new OpenFileDialog();
-			ofd.Filter = "PNG files|*.png|JPEG files|*.jpg";
+			ofd.Filter = "PNG files|*.png|JPEG files|*.jpg|All files|*.*";
 			if (ofd.ShowDialog() == DialogResult.OK)
 			{
-				Bitmap b = new Bitmap(ofd.FileName);
-				BackgroundImage.Image = b;
+				try
+				{
+					Bitmap b = new Bitmap(ofd.FileName);
+					if (b != null && b.Width > 0 && b.Height > 0)
+					{
+						BackgroundImage.Image = b;
+					}
+				} catch(Exception ex)
+				{
+					Debug.WriteLine(ex.Message);
+				}
 			}
 		}
 
@@ -277,7 +305,7 @@ namespace V3KeyManager
 			}
 
 			EditMouseSettings editMouseSettings = new EditMouseSettings();
-			editMouseSettings.CurrentMouseSpeedLabel.Text = "Current Mouse Speed: " + CurrentConfig.PadString(CurrentConfig.MakeDouble(CurrentConfig.Mouse.MouseSpeed.ToString()), 8, '0');
+			editMouseSettings.CurrentMouseSpeedLabel.Text = "Current Mouse Speed: " + ConfigFile.PadString(ConfigFile.MakeDouble(CurrentConfig.Mouse.MouseSpeed.ToString()), 8, '0');
 			DialogResult res = editMouseSettings.ShowDialog();
 			if (res == DialogResult.OK)
 			{
@@ -320,7 +348,8 @@ namespace V3KeyManager
 
 			DialogResult res = DialogResult.Cancel;
 			EditKeyboardSettings editKeyboardSettings = new EditKeyboardSettings();
-			do {
+			do
+			{
 				editKeyboardSettings.ResetLabels();
 				editKeyboardSettings.ResetTextboxes();
 				editKeyboardSettings.PadUpKey.LoadKey("Pad Up", CurrentConfig.Keyboard.PadUp, fill_entries);
@@ -359,8 +388,8 @@ namespace V3KeyManager
 				editKeyboardSettings.MouseModeKey.LoadKey("Mouse Mode", CurrentConfig.Keyboard.MouseMode, fill_entries);
 				editKeyboardSettings.ReturnButtonKey.LoadKey("Return Button", CurrentConfig.Keyboard.ReturnButton, fill_entries);
 				res = editKeyboardSettings.ShowDialog();
-			} while(res == DialogResult.No);
-			if(res == DialogResult.OK)
+			} while (res == DialogResult.No);
+			if (res == DialogResult.OK)
 			{
 				CurrentConfig.Keyboard.PadUp = editKeyboardSettings.PadUpKey.ToStringList();
 				CurrentConfig.Keyboard.PadDown = editKeyboardSettings.PadDownKey.ToStringList();

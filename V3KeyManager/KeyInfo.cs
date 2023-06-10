@@ -103,7 +103,7 @@ namespace V3KeyManager
 			{
 				string str = this.KeyTextbox1.Text;
 				str = ConfigFile.TranslateNormalControls(str, true);
-				str = ConfigFile.TranslateWeirdControls(str);
+				str = ConfigFile.TranslateSpecialControls(str);
 				ret.Add(str);
 			} else {
 				return ret;
@@ -113,7 +113,7 @@ namespace V3KeyManager
 			{
 				string str = this.KeyTextbox2.Text;
 				str = ConfigFile.TranslateNormalControls(str, true);
-				str = ConfigFile.TranslateWeirdControls(str);
+				str = ConfigFile.TranslateSpecialControls(str);
 				ret.Add(str);
 			}
 			else
@@ -125,7 +125,7 @@ namespace V3KeyManager
 			{
 				string str = this.KeyTextbox3.Text;
 				str = ConfigFile.TranslateNormalControls(str, true);
-				str = ConfigFile.TranslateWeirdControls(str);
+				str = ConfigFile.TranslateSpecialControls(str);
 				ret.Add(str);
 			}
 			else

@@ -19,7 +19,7 @@ namespace V3KeyManager
 		public EffectSettings Effect = new EffectSettings();
 		public KeyboardSettings Keyboard = new KeyboardSettings();
 
-		public string ReadSetting(string? line)
+		static public string ReadSetting(string? line)
 		{
 
 			if(line == null)
@@ -44,14 +44,14 @@ namespace V3KeyManager
 			}
 		}
 
-		public string MakeSetting(string setting_name, string setting_value)
+		static public string MakeSetting(string setting_name, string setting_value)
 		{
 
 			string ret = setting_name + " = " + setting_value;
 			return ret;
 		}
 
-		public string PadString(string str, int minimum_length, char c)
+		static public string PadString(string str, int minimum_length, char c)
 		{
 
 			while(str.Length < minimum_length)
@@ -61,7 +61,7 @@ namespace V3KeyManager
 			return str;
 		}
 
-		public string MakeDouble(string str)
+		static public string MakeDouble(string str)
 		{
 
 			int find_dot = str.IndexOf(".");
@@ -97,7 +97,7 @@ namespace V3KeyManager
 			return ret;
 		}
 
-		public string ConcatenateList(List<string> strings)
+		static public string ConcatenateList(List<string> strings)
 		{
 			if(strings.Count == 0)
 			{
@@ -109,8 +109,25 @@ namespace V3KeyManager
 			return sb.ToString().Trim();
 		}
 
-		public void Load(string file)
+		public bool Load(string file)
 		{
+
+			Debug.WriteLine("Loading file: " + file);
+
+			string[] file_read = File.ReadAllLines(file);
+			bool contains_version = file_read.Any(x => x.Contains("[version]"));
+			bool contains_window = file_read.Any(x => x.Contains("[window]"));
+			bool contains_pad = file_read.Any(x => x.Contains("[pad]"));
+			bool contains_mouse = file_read.Any(x => x.Contains("[mouse]"));
+			bool contains_effect = file_read.Any(x => x.Contains("[effect]"));
+			bool contains_keyboard = file_read.Any(x => x.Contains("[keyboard]"));
+			bool is_valid_file = contains_version && contains_window && contains_pad && contains_mouse && contains_effect && contains_keyboard;
+			if(!is_valid_file)
+			{
+				return false;
+			}
+
+			Debug.WriteLine(file + " is a valid file!");
 
 			using(StreamReader reader = new StreamReader(file))
 			{
@@ -188,7 +205,9 @@ namespace V3KeyManager
 				Keyboard.ReturnButton = StringToList(ReadSetting(reader.ReadLine()));       // return_button
 				reader.ReadLine();															//
 
-			}	
+			}
+
+			return true;
 		}
 
 		public void Save(string file)
@@ -269,7 +288,7 @@ namespace V3KeyManager
 			}
 		}
 
-		static public Dictionary<string, string> GetWeirdControls()
+		static public Dictionary<string, string> GetSpecialControls()
 		{
 			Dictionary<string, string> controls = new Dictionary<string, string>()
 			{
@@ -342,13 +361,13 @@ namespace V3KeyManager
 			}
 		}
 
-		static public string TranslateWeirdControls(string str)
+		static public string TranslateSpecialControls(string str)
 		{
-			var controls = GetWeirdControls();
+			var controls = GetSpecialControls();
 			string ret = controls.FirstOrDefault(x => x.Key == str).Value;
 			if (ret == null || ret.Length == 0)
 			{
-				Debug.WriteLine("(TWC) Could not find: " + str);
+				Debug.WriteLine("(TSC) Could not find: " + str);
 				ret = str;
 			}
 			return ret;

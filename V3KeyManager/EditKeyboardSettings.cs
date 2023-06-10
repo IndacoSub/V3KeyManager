@@ -29,6 +29,7 @@ namespace V3KeyManager
 				{
 					continue;
 				}
+				// Hmmmm
 				ret.Add(new KeyInfo {
 					CurrentKeyLabel1 = key.CurrentKeyLabel1, 
 					CurrentKeyLabel2 = key.CurrentKeyLabel2,
@@ -60,21 +61,16 @@ namespace V3KeyManager
 						int index = rand.Next(0, possible_commands.Count - 1);
 						key.KeyTextbox1.Text = possible_commands[index];
 						valid = key.KeyTextbox1.Text != null && key.KeyTextbox1.Text.Length > 0;
-						if(!valid)
-						{
-							Debug.WriteLine("Could not solve set keys");
-							ret = false;
-							break;
-						} else
+						if(valid)
 						{
 							Debug.WriteLine("Set keys solved?");
+							continue;
 						}
-
-					} else
-					{
-						ret = false;
-						break;
 					}
+
+					Debug.WriteLine("Could not solve set keys");
+					ret = false;
+					break;
 				}
 			}
 
@@ -227,12 +223,12 @@ namespace V3KeyManager
 			ResetTextboxes();
 		}
 
-		private List<string> GetPossibleCommands()
+		static private List<string> GetPossibleCommands()
 		{
 			List<string> ret = new List<string>();
 
 			var terms = ConfigFile.GetNormalControls();
-			var weird = ConfigFile.GetWeirdControls();
+			var weird = ConfigFile.GetSpecialControls();
 
 			foreach( var term in terms )
 			{
@@ -270,6 +266,7 @@ namespace V3KeyManager
 
 				foreach (KeyInfo key in keys)
 				{
+					// Arbitrary numbers below
 					int control_numbers = rand.Next(0, 100);
 					if (control_numbers <= 30)
 					{
@@ -321,7 +318,7 @@ namespace V3KeyManager
 				necessary_keys_not_set = !this.AreKeysSet(necessary, true);
 				invalid_controls = this.AreControlsInvalid(true);
 				int new_possible_count = GetPossibleCommands().Count;
-				many_different_keys = new_possible_count > 21;				// Arbitrary number
+				many_different_keys = new_possible_count > 22;				// Arbitrary number
 
 				if(invalid_controls && necessary_keys_not_set && !many_different_keys)
 				{

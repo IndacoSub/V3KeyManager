@@ -148,7 +148,7 @@
 			LaunchGameButton.Name = "LaunchGameButton";
 			LaunchGameButton.Size = new Size(120, 58);
 			LaunchGameButton.TabIndex = 9;
-			LaunchGameButton.Text = "Launch Game";
+			LaunchGameButton.Text = "Save Changes and Launch Game";
 			LaunchGameButton.UseVisualStyleBackColor = true;
 			LaunchGameButton.Click += LaunchGameButton_Click;
 			// 
