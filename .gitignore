@@ -49,3 +49,10 @@
 .vs/*
 V3KeyManager/obj/*
 *.7z
+
+# .NET build and test output
+**/bin/
+**/obj/
+**/TestResults/
+artifacts/
+!global.json

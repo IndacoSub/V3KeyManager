@@ -1,11 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <Version>2.0.0</Version>
+    <Product>V3 Key Manager</Product>
+    <Description>A configuration editor and launcher for Danganronpa V3.</Description>
   </PropertyGroup>
-
+  <ItemGroup>
+    <InternalsVisibleTo Include="V3KeyManager.UI.Tests" />
+    <ProjectReference Include="../V3KeyManager.Core/V3KeyManager.Core.csproj" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,47 @@
+name: Build and test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    name: Windows application and regression tests
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Restore solution
+        run: dotnet restore V3KeyManager.sln
+      - name: Build solution
+        run: dotnet build V3KeyManager.sln --configuration Release --no-restore
+      - name: Run core tests
+        run: dotnet test V3KeyManager.Tests --configuration Release --no-build --logger trx
+      - name: Run Windows interface regression tests
+        run: dotnet test V3KeyManager.UI.Tests --configuration Release --no-build --logger trx
+      - name: Upload interface screenshots and test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-ui-regressions
+          path: |
+            artifacts/ui/*.png
+            **/TestResults/*.trx
+          if-no-files-found: warn
+
+  linux:
+    name: Linux core tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Run core tests
+        run: dotnet test V3KeyManager.Tests --configuration Release --logger trx

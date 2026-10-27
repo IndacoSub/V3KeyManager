@@ -1,17 +1,13 @@
-namespace V3KeyManager
+using V3KeyManager.UI;
+
+namespace V3KeyManager;
+
+internal static class Program
 {
-	internal static class Program
-	{
-		/// <summary>
-		///  The main entry point for the application.
-		/// </summary>
-		[STAThread]
-		static void Main()
-		{
-			// To customize application configuration such as set high DPI settings or default font,
-			// see https://aka.ms/applicationconfiguration.
-			ApplicationConfiguration.Initialize();
-			Application.Run(new V3KeyManager());
-		}
-	}
+    [STAThread]
+    private static void Main(string[] args)
+    {
+        ApplicationConfiguration.Initialize();
+        Application.Run(new MainForm(args.FirstOrDefault()));
+    }
 }
